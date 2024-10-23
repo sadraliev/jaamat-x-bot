@@ -1,0 +1,31 @@
+{
+  "name": "jamat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "start": "NODE_ENV=production node -r dotenv/config ./build/app/bot.js",
+    "start:dev": "DEBUG='grammy*' NODE_ENV=development  tsc-watch --onsuccess \"node -r dotenv/config ./build/app/bot.js\"",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --config .prettierrc.yml '**/*.ts' --write"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "grammy": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.9",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "tsc-watch": "^6.2.0",
+    "typescript": "^5.6.3"
+  }
+}
