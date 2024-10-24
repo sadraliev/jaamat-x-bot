@@ -4,6 +4,7 @@ include .env
 include .env.development.local
 
 build:
+	npm run rimraf
 	npm run build
 start:
 	npm run start
