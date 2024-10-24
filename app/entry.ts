@@ -1,4 +1,7 @@
 import { webhookCallback } from 'grammy';
 import { bot } from './bot';
-
-export default webhookCallback(bot, 'std/http');
+//@ts-ignore
+export default async ({ req, res, log, error }) => {
+  console.log('webhook is running');
+  webhookCallback(bot, 'std/http')(req);
+};
