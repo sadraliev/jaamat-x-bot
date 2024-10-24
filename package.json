@@ -7,7 +7,8 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "rimraf": "rimraf ./build",
+    "build": "tsc",
     "start": "NODE_ENV=production node -r dotenv/config ./build/app/bot.js",
     "start:dev": "DEBUG='grammy*' NODE_ENV=development  tsc-watch --onsuccess \"node -r dotenv/config ./build/app/bot.js\"",
     "lint": "eslint . --ext .ts",
