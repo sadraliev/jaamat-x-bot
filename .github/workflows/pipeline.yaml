@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+env: 
+  IMAGE_TAG: ${{ secrets.DOCKER_USERNAME }}/jaamat-x-bot:${{ github.sha}}
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps: 
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Read docker-compose.yml into variable
+      id: read_docker_compose
+      run: |
+        {
+          echo 'COMPOSE_CONTENT<<EOF'
+          cat ./docker-compose.yml
+          echo EOF
+        } >> $GITHUB_ENV
+        
+        {
+          echo 'NGINX_CONFIG<<EOF'
+          cat ./nginx.conf
+          echo EOF
+        } >> $GITHUB_ENV
+  
+    - name: Log in to Docker Hub 
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+        echo "Step 2 completed - logged to DockerHub"
+
+    - name: Build and Push image 
+      run: | 
+        docker build . --file Dockerfile --tag $IMAGE_TAG
+        echo "Step 3 completed - built a new image"
+        docker push $IMAGE_TAG 
+        echo "Step 4 completed - pushed to DockerHub"
+        echo "$IMAGE_TAG"
