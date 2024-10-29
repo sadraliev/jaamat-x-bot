@@ -7,16 +7,16 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "rimraf": "rimraf ./build",
+    "rimraf": "rimraf ./dist",
     "build": "tsc",
-    "start": "NODE_ENV=production node -r dotenv/config ./build/app/bot.js",
-    "start:dev": "DEBUG='grammy*' NODE_ENV=development  tsc-watch --onsuccess \"node -r dotenv/config ./build/app/bot.js\"",
+    "start:dev": "DEBUG='grammy*' NODE_ENV=development  tsc-watch --onsuccess \"node -r dotenv/config ./dist/src/local.js\"",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --config .prettierrc.yml '**/*.ts' --write"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "fastify": "^5.0.0",
     "grammy": "^1.30.0",
     "node-appwrite": "^11.1.1",
     "rimraf": "^5.0.10"
