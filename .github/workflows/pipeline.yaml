@@ -19,15 +19,17 @@ jobs:
     - name: Read docker-compose.yml into variable
       id: read_docker_compose
       run: |
-        # Set COMPOSE_CONTENT environment variable
-        echo "COMPOSE_CONTENT<<EOF" >> $GITHUB_ENV
-        cat ./docker-compose.yml >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-
-        # Set NGINX_CONFIG environment variable
-        echo "NGINX_CONFIG<<EOF" >> $GITHUB_ENV
-        cat ./nginx.conf >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        {
+          echo 'COMPOSE_CONTENT<<EOF'
+          cat ./docker-compose.yml
+          echo 'EOF'
+        } >> $GITHUB_ENV
+        
+        {
+          echo 'NGINX_CONFIG<<EOF'
+          cat ./nginx.conf
+          echo 'EOF'
+        } >> $GITHUB_ENV
   
     - name: Log in to Docker Hub 
       run: |
