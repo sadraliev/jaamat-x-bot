@@ -22,13 +22,13 @@ jobs:
         {
           echo 'COMPOSE_CONTENT<<EOF'
           cat ./docker-compose.yml
-          echo EOF
+          echo 'EOF'
         } >> $GITHUB_ENV
         
         {
           echo 'NGINX_CONFIG<<EOF'
           cat ./nginx.conf
-          echo EOF
+          echo 'EOF'
         } >> $GITHUB_ENV
   
     - name: Log in to Docker Hub 
