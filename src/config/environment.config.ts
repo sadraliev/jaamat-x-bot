@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 export const envSchema = z.object({
   TELEGRAM_BOT_TOKEN: z.string().min(1, 'TELEGRAM_BOT_TOKEN is required'),
-  HOST_URL: z.string().min(1),
   PORT: z.string().default('3000'),
 });
 
