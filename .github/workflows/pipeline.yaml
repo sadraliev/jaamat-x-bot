@@ -15,6 +15,21 @@ jobs:
     steps: 
     - name: Checkout code
       uses: actions/checkout@v3
+
+    - name: Read docker-compose.yml into variable
+      id: read_docker_compose
+      run: |
+        {
+          echo 'COMPOSE_CONTENT<<EOF'
+          cat ./docker-compose.yml
+          echo 'EOF'
+        } >> $GITHUB_ENV
+        
+        {
+          echo 'NGINX_CONFIG<<EOF'
+          cat ./nginx.conf
+          echo 'EOF'
+        } >> $GITHUB_ENV
   
     - name: Log in to Docker Hub 
       run: |
@@ -41,13 +56,9 @@ jobs:
           cd /home/ubuntu/app/
           echo "${{ vars.DEV }}" > .env
           echo "IMAGE_TAG=${{env.IMAGE_TAG}}" >> .env
-          cat << 'EOF' > /home/ubuntu/app/docker-compose.yml
-          ${COMPOSE_CONTENT}
-          EOF
+          echo '${{ env.COMPOSE_CONTENT }}' > /home/ubuntu/app/docker-compose.yml
           mkdir -p /home/ubuntu/app/nginx/conf
-          cat << 'EOF' > /home/ubuntu/app/nginx/conf/default.conf
-          ${NGINX_CONFIG}
-          EOF
+          echo '${{ env.NGINX_CONFIG}}' > /home/ubuntu/app/nginx/conf/default.conf
           docker compose pull app
           docker compose stop app
           docker compose up -d app
