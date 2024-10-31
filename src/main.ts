@@ -1,6 +1,7 @@
 import { webhookCallback } from 'grammy';
 import { fastify } from 'fastify';
 import { bot } from './bot';
+import './config/environment.config';
 
 const server = fastify();
 
