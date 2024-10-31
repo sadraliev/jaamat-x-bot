@@ -1,6 +1,5 @@
 services:
   app:
-    build: ./app
     container_name: app
     image: ${IMAGE_TAG}
     restart: always
@@ -8,9 +7,9 @@ services:
       - 3000
 
   nginx:
+    container_name: nginx
     image: nginx:latest
     restart: 'unless-stopped'
-    container_name: nginx
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - certbot-etc:/etc/letsencrypt
@@ -20,8 +19,8 @@ services:
       - '443:443'
 
   certbot:
-    image: certbot/certbot
     container_name: certbot
+    image: certbot/certbot
     volumes:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
