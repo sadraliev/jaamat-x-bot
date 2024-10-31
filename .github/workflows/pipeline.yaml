@@ -53,6 +53,7 @@ jobs:
         debug: true
         script: |
           cd /home/ubuntu/app/
+          echo "${{ vars.DEV }}" > .env
           echo "IMAGE_TAG=${{env.IMAGE_TAG}}" >> .env
           echo '${{ env.COMPOSE_CONTENT }}' > /home/ubuntu/app/docker-compose.yml
           echo '${{ env.NGINX_CONFIG}}' > /home/ubuntu/app/nginx.conf
