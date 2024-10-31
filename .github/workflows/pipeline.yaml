@@ -54,7 +54,7 @@ jobs:
         script: |
           mkdir -p /home/ubuntu/app
           cd /home/ubuntu/app/
-          echo "${{ vars.DEV }}" > .env
+          echo "${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
           echo "IMAGE_TAG=${{env.IMAGE_TAG}}" >> .env
           echo '${{ env.COMPOSE_CONTENT }}' > /home/ubuntu/app/docker-compose.yml
           mkdir -p /home/ubuntu/app/nginx/conf
