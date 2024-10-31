@@ -43,3 +43,21 @@ jobs:
         docker push $IMAGE_TAG 
         echo "Step 4 completed - pushed to DockerHub"
         echo "$IMAGE_TAG"
+
+    - name: Deploy
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.EC2_URL}}
+        username: ${{ secrets.EC2_USER}}  
+        key: ${{ secrets.EC2_SSH}}
+        debug: true
+        script: |
+          cd /home/ubuntu/app/
+          echo "IMAGE_TAG=${{env.IMAGE_TAG}}" >> .env
+          echo '${{ env.COMPOSE_CONTENT }}' > /home/ubuntu/app/docker-compose.yml
+          echo '${{ env.NGINX_CONFIG}}' > /home/ubuntu/app/nginx.conf
+          docker compose pull app
+          docker compose stop app
+          docker compose up -d app
+          docker system prune -a --volumes -f
+          echo "deploy is completed succefully"
