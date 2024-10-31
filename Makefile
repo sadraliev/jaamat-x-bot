@@ -18,6 +18,6 @@ get-webhook-info:
 up:
 	docker-compose up -d
 initial-certificate-request:
-	docker-compose run --rm certbot certonly --webroot -w /var/lib/letsencrypt -d jaamat.exchange -d www.jaamat.exchange --dry-run
+	docker compose run --rm certbot certonly --webroot -w /var/www/certbot/ -d jaamat.exchange -d www.jaamat.exchange --dry-run
 reload-nginx:
-	docker-compose exec nginx  -s reload
+	docker compose exec nginx  -s reload
