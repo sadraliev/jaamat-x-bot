@@ -17,7 +17,7 @@ get-webhook-info:
 
 up:
 	docker-compose up -d
-initial-certificate-request:
+certbot-dry-run:
 	docker compose run --rm certbot certonly --webroot -w /var/www/certbot/ -d api.dev.jaamat.exchange --dry-run
 reload-nginx:
 	docker compose exec nginx nginx -s reload
